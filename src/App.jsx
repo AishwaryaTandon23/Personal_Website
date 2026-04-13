@@ -115,15 +115,7 @@ const Projects = () => {
     });
       };
   const projects = [
-    {
-      title: "Mind4Youth Self Care Kits",
-      image: "/proj2.jpg",
-      description: "Built a youth mental health non-profit, distributing 4000+ care kits globally.",
-      links: [
-        { label: "Website", url: "https://mind4youth.com" },
-      ],
-      tools: ["Business Development", "User Research"]
-    },
+
     {
       title: "NomNom",
       image: "/proj4.jpg",
@@ -133,21 +125,6 @@ const Projects = () => {
       tools: ["React", "Typescript", "Figma", "MongoDB"]
     },
     {
-      title: "JamHacks Website",
-      image: "/proj1.jpg",
-      description: "Designed the interactive website for JamHacks, a student-run hackathon.",
-      links: [
-        { label: "Figma", url: "https://www.figma.com/proto/EbFepnR4NMUCcemtjD6GPf/JAMHacks-Website?node-id=0-1&t=CunztN9x5My2db0b-1" },
-      ],
-      tools: ["UI/UX Design", "Figma"]
-    },
-  {
-    title: "Fluffy vs. Feathers",
-    video: "/fluffy.mp4", // put your video in public folder
-    description: "Designed and built a 3D printed puzzle game with functional hockey elements.",
-    tools: ["SolidWorks", "UI/UX Design"]
-},
-{
       title: "SafeNest",
       image: "/proj6.jpg",
       description: "Designed and developed a financial-literacy website ",
@@ -163,6 +140,32 @@ const Projects = () => {
       description: "Designed a prosthetic assistive device to assist individuals in turning book pages more easily.",
       tools: ["Fusion 360", "User-Centered Design", "3D Printing"],
     },
+    {
+      title: "JamHacks Website",
+      image: "/proj1.jpg",
+      description: "Designed the interactive website for JamHacks, a student-run hackathon.",
+      links: [
+        { label: "Figma", url: "https://www.figma.com/proto/EbFepnR4NMUCcemtjD6GPf/JAMHacks-Website?node-id=0-1&t=CunztN9x5My2db0b-1" },
+      ],
+      tools: ["UI/UX Design", "Figma"]
+    },
+
+    {
+      title: "Mind4Youth Self Care Kits",
+      image: "/proj2.jpg",
+      description: "Built a youth mental health non-profit, distributing 4000+ care kits globally.",
+      links: [
+        { label: "Website", url: "https://mind4youth.com" },
+      ],
+      tools: ["Business Development", "User Research"]
+    },
+
+  {
+    title: "Fluffy vs. Feathers",
+    video: "/fluffy.mp4", // put your video in public folder
+    description: "Designed and built a 3D printed puzzle game with functional hockey elements.",
+    tools: ["SolidWorks", "UI/UX Design"]
+},
     // Add more projects as needed
   ];
   
