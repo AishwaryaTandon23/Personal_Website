@@ -226,7 +226,7 @@ const Experience = () => {
     {
       title: "Technical Business Analyst",
       institution: "Victoria Hand Project",
-      period: "Jan. 2026 - Present",
+      period: "Jan. 2026 - April 2026",
       location: "Victoria, BC",
       description: "Improving 3D-printed prosthetic solutions by translating user feedback into design improvements and optimizing stakeholder engagement.",
     },
