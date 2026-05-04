@@ -224,18 +224,18 @@ const Projects = () => {
 const Experience = () => {
   const experiences = [
     {
-      title: "Systems Engineer",
+      title: "Technical Business Analyst",
       institution: "Victoria Hand Project",
       period: "Jan. 2026 - Present",
       location: "Victoria, BC",
-      description: "Improving 3D-printed prosthetic solutions by translating user feedback into assistive device designs and optimizing software workflows through testing.",
+      description: "Improving 3D-printed prosthetic solutions by translating user feedback into design improvements and optimizing stakeholder engagement.",
     },
     {
-      title: "VP Outreach",
+      title: "Vice President",
       institution: "University of Waterloo Product Management Club",
       period: "Sept. 2025 - Jan. 2026",
       location: "Waterloo, ON",
-      description: "Organized community engagement and outreach, securing judges, speakers, sponsors, and coordinating with executives.",
+      description: "Organized community engagement and outreach, educating University Students on product management techniques.",
       type: "edu"
     },
     {
