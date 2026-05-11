@@ -125,6 +125,18 @@ const Projects = () => {
       tools: ["React", "Typescript", "Figma", "MongoDB"]
     },
     {
+      title: "Prosthetic Design - Book Assistive Device",
+      image: "/proj7.jpg",
+      description: "Designed a prosthetic assistive device to assist individuals in turning book pages more easily.",
+      tools: ["Fusion 360", "User-Centered Design", "3D Printing"],
+    },
+    {
+      title: "Prosthetic Hand Design",
+      image: "/proj8.jpg",
+      description: "Designed a 3D hand model in Fusion 360 for a company event supporting a new Kenya campaign.",
+      tools: ["Fusion 360", "3D Printing"],
+    },
+    {
       title: "SafeNest",
       image: "/proj6.jpg",
       description: "Designed and developed a financial-literacy website ",
@@ -135,10 +147,10 @@ const Projects = () => {
       tools: ["Software Development", "Front-End"]
     },
     {
-      title: "Prosthetic Design - Book Assistive Device",
-      image: "/proj7.jpg",
-      description: "Designed a prosthetic assistive device to assist individuals in turning book pages more easily.",
-      tools: ["Fusion 360", "User-Centered Design", "3D Printing"],
+      title: "Technical Manual Development",
+      image: "/proj9.jpg",
+      description: "Created and updated technical manuals explaining product use for non-technical audiences.",
+      tools: ["Microsoft Suite", "User Research"],
     },
     {
       title: "JamHacks Website",
@@ -224,7 +236,7 @@ const Projects = () => {
 const Experience = () => {
   const experiences = [
     {
-      title: "Technical Business Analyst",
+      title: "Technical Business Analyst & Systems Engineer",
       institution: "Victoria Hand Project",
       period: "Jan. 2026 - April 2026",
       location: "Victoria, BC",
