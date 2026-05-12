@@ -6,7 +6,7 @@ import './App.css';
 /* ---------------- HOME ---------------- */
 
 const Home = () => {
-  const [statusText, setStatusText] = useState("Systems Design Engineeing at the University of Waterloo, 2025 Loran Scholar");
+  const [statusText, setStatusText] = useState("Systems Design Engineering at the University of Waterloo, 2025 Loran Scholar");
   const [displayName, setDisplayName] = useState("");
   const [isDeleting, setIsDeleting] = useState(false);
   const [loopNum, setLoopNum] = useState(0);
