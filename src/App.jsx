@@ -112,6 +112,15 @@ const Projects = () => {
       tools: ["React", "Typescript", "Figma", "MongoDB"]
     },
     {
+      title: "Mind4Youth Self Care Kits",
+      image: "/proj2.jpg",
+      description: "Built a youth mental health non-profit, distributing 5000+ care kits globally.",
+      links: [
+        { label: "Website", url: "https://mind4youth.com" },
+      ],
+      tools: ["Business Development", "User Research"]
+    },
+    {
       title: "Prosthetic Design - Book Assistive Device",
       image: "/proj7.jpg",
       description: "Designed a prosthetic assistive device to assist individuals in turning book pages more easily.",
@@ -147,15 +156,6 @@ const Projects = () => {
         { label: "Figma", url: "https://www.figma.com/proto/EbFepnR4NMUCcemtjD6GPf/JAMHacks-Website?node-id=0-1&t=CunztN9x5My2db0b-1" },
       ],
       tools: ["UI/UX Design", "Figma"]
-    },
-    {
-      title: "Mind4Youth Self Care Kits",
-      image: "/proj2.jpg",
-      description: "Built a youth mental health non-profit, distributing 4000+ care kits globally.",
-      links: [
-        { label: "Website", url: "https://mind4youth.com" },
-      ],
-      tools: ["Business Development", "User Research"]
     },
     {
       title: "Fluffy vs. Feathers",
