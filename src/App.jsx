@@ -49,13 +49,16 @@ const Home = () => {
   return (
     <div className="hero">
 
-      {/* Background Video */}
+      {/* Background Video — playsInline is critical for iOS autoplay */}
       <video
         className="background-video"
         autoPlay
         loop
         muted
         playsInline
+        webkit-playsinline="true"
+        x5-playsinline="true"
+        preload="auto"
       >
         <source src="/portfolio.mp4" type="video/mp4" />
       </video>
@@ -94,34 +97,18 @@ const Home = () => {
 const About = () => (
   <div className="page-content">
     <h1>About Me</h1>
-      </div>
+  </div>
 );
 
 const Projects = () => {
-
-
-  const scroll = (direction) => {
-    const container = scrollRef.current;
-    if (!container) return;
-
-    const card = container.querySelector('.project-card');
-    if (!card) return;
-
-    const cardWidth = card.offsetWidth + 32; // includes gap
-
-    container.scrollBy({
-      left: direction === 'left' ? -cardWidth : cardWidth,
-      behavior: 'smooth'
-    });
-      };
   const projects = [
-
     {
       title: "NomNom",
       image: "/proj4.jpg",
       description: "Building an app that disguises as a food ordering platform while offering support for individuals at risk.",
       links: [
-        { label: "Figma", url: "https://www.figma.com/proto/MXSp4IM6M78rAxIpYO6HDO/NomNom-iOS-App-Prototype?node-id=0-1&t=U99nMAMqv6dxLp2T-1" },      ],
+        { label: "Figma", url: "https://www.figma.com/proto/MXSp4IM6M78rAxIpYO6HDO/NomNom-iOS-App-Prototype?node-id=0-1&t=U99nMAMqv6dxLp2T-1" },
+      ],
       tools: ["React", "Typescript", "Figma", "MongoDB"]
     },
     {
@@ -139,7 +126,7 @@ const Projects = () => {
     {
       title: "SafeNest",
       image: "/proj6.jpg",
-      description: "Designed and developed a financial-literacy website ",
+      description: "Designed and developed a financial-literacy website.",
       links: [
         { label: "Github", url: "https://github.com/AishwaryaTandon23/safenest" },
         { label: "Demo", url: "https://drive.google.com/file/d/1LEeix1RDdDK9PqoOr0_ENGyB_ytmvffb/view" }
@@ -161,7 +148,6 @@ const Projects = () => {
       ],
       tools: ["UI/UX Design", "Figma"]
     },
-
     {
       title: "Mind4Youth Self Care Kits",
       image: "/proj2.jpg",
@@ -171,16 +157,13 @@ const Projects = () => {
       ],
       tools: ["Business Development", "User Research"]
     },
-
-  {
-    title: "Fluffy vs. Feathers",
-    video: "/fluffy.mp4", // put your video in public folder
-    description: "Designed and built a 3D printed puzzle game with functional hockey elements.",
-    tools: ["SolidWorks", "UI/UX Design"]
-},
-    // Add more projects as needed
+    {
+      title: "Fluffy vs. Feathers",
+      video: "/fluffy.mp4",
+      description: "Designed and built a 3D printed puzzle game with functional hockey elements.",
+      tools: ["SolidWorks", "UI/UX Design"]
+    },
   ];
-  
 
   return (
     <div className="page-content projects-page-horizontal">
@@ -188,7 +171,7 @@ const Projects = () => {
         {projects.map((project, idx) => (
           <div className="project-card" key={idx}>
             <h2>{project.title}</h2>
-            {/* NEW: Links line */}
+
             {project.links && project.links.length > 0 && (
               <div className="project-links">
                 {project.links.map((link, i) => (
@@ -204,23 +187,28 @@ const Projects = () => {
                 ))}
               </div>
             )}
-{project.video ? (
-  <video
-    className="project-video"
-    autoPlay
-    loop
-    muted
-    playsInline
-  >
-    <source src={project.video} type="video/mp4" />
-  </video>
-) : (
-  <img
-    src={project.image}
-    alt={project.title}
-    className="project-image"
-  />
-)}            <p className="project-description">{project.description}</p>
+
+            {project.video ? (
+              <video
+                className="project-video"
+                autoPlay
+                loop
+                muted
+                playsInline
+                webkit-playsinline="true"
+                preload="auto"
+              >
+                <source src={project.video} type="video/mp4" />
+              </video>
+            ) : (
+              <img
+                src={project.image}
+                alt={project.title}
+                className="project-image"
+              />
+            )}
+
+            <p className="project-description">{project.description}</p>
             <div className="project-tools">
               {project.tools.map((tool, i) => (
                 <span key={i} className="tool">{tool}</span>
@@ -269,7 +257,6 @@ const Experience = () => {
   ];
 
   return (
-    
     <div className="experience-page">
       <div className="timeline-container">
         {experiences.map((exp, idx) => (
@@ -311,40 +298,40 @@ function App() {
     <div className="portfolio-container">
 
       <nav className="navbar">
-  <Link to="/" className="logo">AT</Link>
+        <Link to="/" className="logo">AT</Link>
 
-  <div className="nav-dashboard">
-    <Link 
-      to="/projects" 
-      className={location.pathname === '/projects' ? 'active' : ''}
-    >
-      Projects
-    </Link>
+        <div className="nav-dashboard">
+          <Link
+            to="/projects"
+            className={location.pathname === '/projects' ? 'active' : ''}
+          >
+            Projects
+          </Link>
 
-    <Link 
-      to="/experience" 
-      className={location.pathname === '/experience' ? 'active' : ''}
-    >
-      Experience
-    </Link>
+          <Link
+            to="/experience"
+            className={location.pathname === '/experience' ? 'active' : ''}
+          >
+            Experience
+          </Link>
 
-    <a 
-      href="https://www.linkedin.com/in/aishwarya-tandon-028776273/" 
-      target="_blank" 
-      rel="noopener noreferrer"
-      className="icon-link"
-    >
-      <FaLinkedin />
-    </a>
+          <a
+            href="https://www.linkedin.com/in/aishwarya-tandon-028776273/"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="icon-link"
+          >
+            <FaLinkedin />
+          </a>
 
-    <a 
-      href="mailto:aishutandon.at@gmail.com"
-      className="icon-link"
-    >
-      <FaEnvelope />
-    </a>
-  </div>
-</nav>
+          <a
+            href="mailto:aishutandon.at@gmail.com"
+            className="icon-link"
+          >
+            <FaEnvelope />
+          </a>
+        </div>
+      </nav>
 
       <div className="main-content">
         <Routes>
@@ -357,6 +344,5 @@ function App() {
     </div>
   );
 }
-
 
 export default App;

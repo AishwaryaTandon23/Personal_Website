@@ -29,9 +29,8 @@ body {
   position: fixed;
   top: 0;
   left: 0;
-  /* Removed the solid background to let the video show through */
-  background: transparent; 
-  backdrop-filter: blur(4px); /* Optional: reduced blur for more video clarity */
+  background: transparent;
+  backdrop-filter: blur(4px);
   z-index: 1000;
 }
 
@@ -50,14 +49,14 @@ body {
 
 .nav-dashboard {
   display: flex;
+  align-items: center;
   gap: 30px;
-  background: rgba(255, 255, 255, 0.05);
-  padding: 12px 30px;
+  background: rgba(255, 255, 255, 0.08);
+  padding: 10px 28px;
   border-radius: 50px;
   border: 1px solid rgba(255, 255, 255, 0.1);
-  display: flex;
   justify-content: center;
-  gap: 40px;
+  backdrop-filter: blur(10px);
 }
 
 .nav-dashboard a {
@@ -92,8 +91,10 @@ body {
   width: 100%;
 }
 
-.nav-spacer {
-  width: 40px;
+.icon-link {
+  display: flex;
+  align-items: center;
+  font-size: 1.1rem;
 }
 
 /* ---------------- MAIN CONTENT ---------------- */
@@ -113,24 +114,28 @@ body {
 .hero {
   position: relative;
   width: 100%;
-  min-height: 100vh;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .background-video {
-  position: absolute;   /* change from fixed */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
   height: 100%;
   object-fit: cover;
-  z-index: 0;           /* not negative */
+  object-position: center center;
+  z-index: 0;
+  /* Critical for mobile autoplay */
+  -webkit-playsinline: true;
 }
 
 .video-overlay {
-  position: absolute;   /* change from fixed */
+  position: absolute;
   top: 0;
   left: 0;
   width: 100%;
@@ -139,25 +144,18 @@ body {
   z-index: 1;
 }
 
-.hero {
-  position: relative;
-  width: 100%;
-  height: 100vh;        /* force full screen */
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  overflow: hidden;     /* important */
-}
-
 .hero-content {
   position: relative;
   z-index: 2;
+  padding: 0 1.5rem;
+  max-width: 90vw;
 }
 
 .name-container h1 {
-  font-size: clamp(2.5rem, 8vw, 4rem);
+  font-size: clamp(1.8rem, 7vw, 4rem);
   font-weight: 800;
   margin-bottom: 1rem;
+  line-height: 1.2;
 }
 
 .dynamic-name {
@@ -175,13 +173,13 @@ body {
   50% { opacity: 0; }
 }
 
-/* Editable Glow */
 .editable-glow {
   color: #ffffff;
   font-weight: 600;
   cursor: text;
   padding: 0 4px;
   transition: all 0.3s ease;
+  font-size: clamp(0.85rem, 2.5vw, 1rem);
 }
 
 .editable-glow:focus {
@@ -200,92 +198,18 @@ body {
   to { opacity: 1; transform: translateY(0); }
 }
 
-.nav-dashboard {
-  display: flex;
-  align-items: center;
-  gap: 30px;
-  padding: 8px 28px;
-  border-radius: 50px;
-  background: rgba(255, 255, 255, 0.08);
-  backdrop-filter: blur(10px);
-}
-
-.nav-dashboard a {
-  color: white;
-  text-decoration: none;
-  font-size: 0.95rem;
-  transition: 0.3s ease;
-}
-
-.nav-dashboard a:hover {
-  color: #ffffff;
-}
-
-.icon-link {
-  display: flex;
-  align-items: center;
-  font-size: 1.1rem;
-}
-
-.projects-page {
-  display: flex;
-  flex-direction: column;
-  gap: 60px; /* space between projects */
-  padding: 2rem;
-  margin-top: 3rem;
-  align-items: center;
-}
-
-.project-card {
-  text-align: center;
-  max-width: 800px;
-  margin-top: 3rem;
-}
-
-.project-image {
-  width: 100%;
-  height: auto;
-  max-width: 1100px;      /* wider than before */
-  height: 350px;         /* less tall */
-  object-fit: cover;     /* crop nicely without stretching */
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-  
-}
-
-.project-description {
-  font-size: 1.1rem;
-  margin-bottom: 0.5rem;
-  color: #ddd;
-}
-
-.project-tools {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-}
-
-.project-tools .tool {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 6px 12px;
-  border-radius: 20px;
-  font-size: 0.9rem;
-  color: #fff;
-}
+/* ---------------- PROJECTS ---------------- */
 
 .projects-page-horizontal {
   overflow-x: auto;
   overflow-y: hidden;
   padding: 2rem;
   width: 100%;
-
-  /* Force scrollbar to always show */
-  scrollbar-width: thin; /* Firefox */
+  scrollbar-width: thin;
 }
 
 .projects-page-horizontal::-webkit-scrollbar {
-  height: 10px; /* thickness */
+  height: 10px;
 }
 
 .projects-page-horizontal::-webkit-scrollbar-thumb {
@@ -297,84 +221,19 @@ body {
   background: rgba(255,255,255,0.05);
 }
 
-.projects-page-horizontal {
-  position: relative;
-  margin-bottom: 20px; /* creates space so scrollbar is visible */
-  overflow-x: auto; /* override works fine */
-
-}
-
 .projects-container {
   display: flex;
   gap: 2rem;
-  scroll-snap-type: x mandatory; /* snap each panel */
+  scroll-snap-type: x mandatory;
   scroll-padding: 2rem;
 }
 
 .project-card {
-  min-width: 800px;      /* width of each panel */
-  flex: 0 0 auto;        /* prevent shrinking */
-  scroll-snap-align: center; /* center snap */
+  min-width: 800px;
+  flex: 0 0 auto;
+  scroll-snap-align: center;
   text-align: center;
-
-}
-
-
-.project-image {
-  width: 100%;
-  max-width: 1100px;
-  height: 540px;
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-  margin-bottom: 1rem;
-  margin-top: 2rem;
-}
-
-.projects-container::-webkit-scrollbar {
-  height: 8px;
-}
-
-.projects-container::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.3);
-  border-radius: 4px;
-}
-
-.projects-container::-webkit-scrollbar-track {
-  background: transparent;
-}
-
-/* Container for links under each project */
-.project-links {
-  display: flex;
-  flex-wrap: wrap;            /* allow multiple lines if needed */
-  justify-content: center;     /* center under description */
-  gap: 0.8rem;                 /* space between each link */
-  margin-top: 0.5rem;
-
-}
-
-/* Individual links styled as pills/buttons */
-.project-link {
-  display: inline-block;
-  padding: 6px 14px;           /* nice clickable size */
-  border-radius: 20px;         /* pill shape */
-  background: rgba(0, 255, 255, 0.1); /* subtle cyan highlight */
-  color: #fff;              /* link color */
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-decoration: none;       /* remove underline */
-  transition: all 0.3s ease;
-}
-
-.project-link:hover {
-  background: rgba(0, 255, 255, 0.3); /* stronger highlight */
-  text-decoration: none;
-  text-shadow: 0 0 8px #fff;      /* subtle glow */
-  cursor: pointer;
-}
-
-.project-card {
+  margin-top: 3rem;
   transform: scale(0.9);
   opacity: 0.6;
   transition: all 0.3s ease;
@@ -390,17 +249,84 @@ body {
   opacity: 0.6;
 }
 
-.project-card:hover {
-  transform: scale(1);
-  opacity: 1;
-}
-
 .projects-container:hover .project-card {
   opacity: 0.4;
 }
 
 .project-card:hover {
+  transform: scale(1);
   opacity: 1 !important;
+}
+
+.project-image {
+  width: 100%;
+  max-width: 1100px;
+  height: 540px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+.project-video {
+  width: 100%;
+  max-width: 1100px;
+  height: 540px;
+  object-fit: cover;
+  border-radius: 12px;
+  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+  margin-bottom: 1rem;
+  margin-top: 2rem;
+}
+
+.project-description {
+  font-size: 1.1rem;
+  margin-bottom: 0.5rem;
+  color: #ddd;
+}
+
+.project-tools {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 10px;
+  margin-top: 0.75rem;
+}
+
+.project-tools .tool {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.9rem;
+  color: #fff;
+}
+
+.project-links {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.8rem;
+  margin-top: 0.5rem;
+}
+
+.project-link {
+  display: inline-block;
+  padding: 6px 14px;
+  border-radius: 20px;
+  background: rgba(0, 255, 255, 0.1);
+  color: #fff;
+  font-size: 0.95rem;
+  font-weight: 500;
+  text-decoration: none;
+  transition: all 0.3s ease;
+}
+
+.project-link:hover {
+  background: rgba(0, 255, 255, 0.3);
+  text-decoration: none;
+  text-shadow: 0 0 8px #fff;
+  cursor: pointer;
 }
 
 /* ---------------- EXPERIENCE PAGE ---------------- */
@@ -419,16 +345,14 @@ body {
   gap: 2rem;
 }
 
-
-/* The Vertical Line */
 .timeline-container::before {
   content: '';
   position: absolute;
-  left: 20px; /* Aligned with the icons */
+  left: 20px;
   top: 10px;
   bottom: 10px;
   width: 2px;
-  background: #fff; /* Dark blue line */
+  background: #fff;
   z-index: 0;
 }
 
@@ -441,7 +365,7 @@ body {
 }
 
 .timeline-icon {
-  background: #0a0a0a; /* Matches body bg */
+  background: #0a0a0a;
   padding: 5px 0;
 }
 
@@ -456,7 +380,7 @@ body {
   align-items: center;
   font-size: 1.1rem;
   box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  color: #fff; /* Light blue icon color */
+  color: #fff;
 }
 
 .experience-card {
@@ -510,25 +434,156 @@ body {
   font-size: 0.95rem;
 }
 
-/* Mobile Responsive */
+/* ================================================
+   MOBILE RESPONSIVE â€” all overrides below 768px
+   ================================================ */
+
 @media (max-width: 768px) {
+
+  /* Navbar: shrink padding, keep centered pill */
+  .navbar {
+    padding: 1rem 1.2rem;
+    grid-template-columns: auto 1fr;
+    gap: 0.5rem;
+  }
+
+  .nav-dashboard {
+    gap: 16px;
+    padding: 8px 16px;
+    font-size: 0.75rem;
+  }
+
+  .nav-dashboard a {
+    font-size: 0.72rem;
+    letter-spacing: 0.5px;
+  }
+
+  .icon-link {
+    font-size: 1rem;
+  }
+
+  /* Hero: ensure video fills and autoplays correctly */
+  .hero {
+    height: 100svh; /* use small viewport height on mobile */
+  }
+
+  .background-video {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+  }
+
+  .hero-content {
+    padding: 0 1.2rem;
+    text-align: center;
+  }
+
+  .name-container h1 {
+    font-size: clamp(1.5rem, 8vw, 2.5rem);
+    margin-bottom: 0.75rem;
+  }
+
+  .editable-glow {
+    font-size: 0.85rem;
+  }
+
+  /* Projects: switch from horizontal scroll to vertical stack */
+  .projects-page-horizontal {
+    overflow-x: hidden;
+    overflow-y: visible;
+    padding: 1rem;
+  }
+
+  .projects-container {
+    flex-direction: column;
+    gap: 2rem;
+    scroll-snap-type: none;
+  }
+
+  .project-card {
+    min-width: unset;
+    width: 100%;
+    transform: scale(1) !important;
+    opacity: 1 !important;
+    margin-top: 1.5rem;
+  }
+
+  .project-image,
+  .project-video {
+    height: 220px;
+    margin-top: 1rem;
+    margin-bottom: 0.75rem;
+  }
+
+  .project-description {
+    font-size: 0.95rem;
+  }
+
+  /* Experience: stack meta below title */
+  .experience-page {
+    padding: 80px 14px 40px;
+  }
+
+  .timeline-container::before {
+    left: 16px;
+  }
+
+  .timeline-item {
+    gap: 16px;
+  }
+
+  .icon-circle {
+    width: 34px;
+    height: 34px;
+    font-size: 0.9rem;
+    flex-shrink: 0;
+  }
+
+  .experience-card {
+    padding: 1.25rem 1rem;
+  }
+
   .card-header {
     flex-direction: column;
-    gap: 10px;
+    gap: 8px;
   }
+
   .meta-group {
     text-align: left;
+    white-space: normal;
+  }
+
+  .title-group h3 {
+    font-size: 1.05rem;
+  }
+
+  .institution {
+    font-size: 0.9rem;
+  }
+
+  .description {
+    font-size: 0.88rem;
+  }
+
+  .experience-card:hover {
+    transform: none; /* avoid layout shift on mobile tap */
   }
 }
 
-.project-video {
-  width: 100%;
-  max-width: 1100px;
-  height: 540px;
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-  margin-bottom: 1rem;
-  margin-top: 2rem;
-}
+/* Extra small screens */
+@media (max-width: 400px) {
+  .name-container h1 {
+    font-size: 1.4rem;
+  }
 
+  .nav-dashboard {
+    gap: 10px;
+    padding: 7px 12px;
+  }
+
+  .project-image,
+  .project-video {
+    height: 180px;
+  }
+}
