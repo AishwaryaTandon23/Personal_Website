@@ -231,9 +231,9 @@ const Experience = () => {
       description: "Improving 3D-printed prosthetic solutions by translating user feedback into design improvements and optimizing stakeholder engagement.",
     },
     {
-      title: "Vice President",
+      title: "President",
       institution: "University of Waterloo Product Management Club",
-      period: "Sept. 2025 - Jan. 2026",
+      period: "Sept. 2025 - Present",
       location: "Waterloo, ON",
       description: "Organized community engagement and outreach, educating University Students on product management techniques.",
       type: "edu"
