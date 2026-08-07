@@ -228,7 +228,7 @@ const Experience = () => {
       institution: "IBM",
       period: "Incoming Sept. 2026",
       location: "Toronto, ON",
-      description: "Support clients in implementing Oracle solutions through requirements analysis and strategic recommendations",
+      description: "Support clients in implementing Oracle solutions through requirements analysis and strategic recommendations.",
     },
     {
       title: "Technical Business Analyst & Systems Engineer",
