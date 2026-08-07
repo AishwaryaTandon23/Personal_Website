@@ -224,6 +224,13 @@ const Projects = () => {
 const Experience = () => {
   const experiences = [
     {
+      title: "Oracle Product Consulting Intern",
+      institution: "IBM",
+      period: "Incoming Sept. 2026",
+      location: "Toronto, ON",
+      description: "Support clients in implementing Oracle solutions through requirements analysis and strategic recommendations",
+    },
+    {
       title: "Technical Business Analyst & Systems Engineer",
       institution: "Victoria Hand Project",
       period: "Jan. 2026 - April 2026",
