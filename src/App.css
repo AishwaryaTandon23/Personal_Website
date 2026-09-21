@@ -5,6 +5,10 @@
   box-sizing: border-box;
 }
 
+html {
+  scroll-behavior: smooth;
+}
+
 body {
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
   background-color: #0a0a0a;
@@ -40,7 +44,7 @@ body {
   letter-spacing: 2px;
   color: #ffffff;
   text-decoration: none;
-  transition: transform 0.3s ease;
+  transition: transform 0.3s ease, color 0.3s ease;
 }
 
 .logo:hover {
@@ -66,7 +70,7 @@ body {
   text-transform: uppercase;
   letter-spacing: 1px;
   opacity: 0.5;
-  transition: 0.4s ease;
+  transition: 0.4s ease, color 0.3s ease;
   position: relative;
 }
 
@@ -91,6 +95,26 @@ body {
   width: 100%;
 }
 
+/* When the Experience section (off-white bg) is scrolled under the fixed,
+   transparent navbar, swap the nav text/icons from light to dark so they
+   stay legible without needing an opaque strip behind them. */
+.navbar.navbar-on-light .logo {
+  color: #0a0a0a;
+}
+
+.navbar.navbar-on-light .nav-dashboard {
+  background: rgba(10, 10, 10, 0.05);
+  border-color: rgba(10, 10, 10, 0.12);
+}
+
+.navbar.navbar-on-light .nav-dashboard a {
+  color: #0a0a0a;
+}
+
+.navbar.navbar-on-light .nav-dashboard a::after {
+  background: #0a0a0a;
+}
+
 .icon-link {
   display: flex;
   align-items: center;
@@ -100,13 +124,21 @@ body {
 /* ---------------- MAIN CONTENT ---------------- */
 
 .main-content {
-  flex: 1;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  text-align: center;
   width: 100%;
-  padding-bottom: 10px;
+}
+
+/* Each section is a full stop on the page; offset the scroll target so the
+   fixed navbar never covers the top of a section when jumped to via the nav
+   links (Home doesn't need it, it already starts at the very top). */
+.scroll-section {
+  display: block;
+  width: 100%;
+}
+
+#projects,
+#experience,
+#favourites {
+  scroll-margin-top: 110px;
 }
 
 /* ---------------- HERO SECTION ---------------- */
@@ -156,6 +188,7 @@ body {
   font-weight: 800;
   margin-bottom: 1rem;
   line-height: 1.2;
+  text-shadow: 0 2px 16px rgba(0, 0, 0, 0.6);
 }
 
 .dynamic-name {
@@ -180,6 +213,7 @@ body {
   padding: 0 4px;
   transition: all 0.3s ease;
   font-size: clamp(0.85rem, 2.5vw, 1rem);
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.6);
 }
 
 .editable-glow:focus {
@@ -200,238 +234,525 @@ body {
 
 /* ---------------- PROJECTS ---------------- */
 
-.projects-page-horizontal {
-  overflow-x: auto;
-  overflow-y: hidden;
-  padding: 2rem;
+.projects-section {
+  text-align: left;
   width: 100%;
-  scrollbar-width: thin;
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 6rem 4vw 5rem;
 }
 
-.projects-page-horizontal::-webkit-scrollbar {
+.section-heading {
+  text-align: center;
+  font-size: clamp(1.7rem, 3.6vw, 2.3rem);
+  font-weight: 800;
+  margin-bottom: 2rem;
+}
+
+.projects-header {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 0.5rem;
+}
+
+.projects-nav-arrows {
+  display: flex;
+  gap: 12px;
+  flex-shrink: 0;
+}
+
+.arrow-btn {
+  width: 46px;
+  height: 46px;
+  border-radius: 50%;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  line-height: 1;
+  transition: transform 0.25s ease, background 0.25s ease;
+}
+
+.arrow-btn-ghost {
+  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.arrow-btn-ghost:hover {
+  background: rgba(255, 255, 255, 0.16);
+}
+
+.arrow-btn-solid {
+  background: #ffffff;
+  color: #0a0a0a;
+}
+
+.arrow-btn-solid:hover {
+  transform: scale(1.08);
+}
+
+.projects-scroller {
+  display: flex;
+  gap: 2rem;
+  overflow-x: auto;
+  overflow-y: visible;
+  scroll-snap-type: x mandatory;
+  scrollbar-width: thin;
+  padding: 0.75rem 0 1rem;
+}
+
+.projects-scroller::-webkit-scrollbar {
   height: 10px;
 }
 
-.projects-page-horizontal::-webkit-scrollbar-thumb {
-  background: rgba(255,255,255,0.4);
+.projects-scroller::-webkit-scrollbar-thumb {
+  background: rgba(255, 255, 255, 0.4);
   border-radius: 6px;
 }
 
-.projects-page-horizontal::-webkit-scrollbar-track {
-  background: rgba(255,255,255,0.05);
+.projects-scroller::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.05);
 }
 
-.projects-container {
-  display: flex;
-  gap: 2rem;
-  scroll-snap-type: x mandatory;
-  scroll-padding: 2rem;
-}
-
-.project-card {
-  min-width: 800px;
+.bento-card {
   flex: 0 0 auto;
-  scroll-snap-align: center;
-  text-align: center;
-  margin-top: 3rem;
-  transform: scale(0.9);
-  opacity: 0.6;
-  transition: all 0.3s ease;
+  width: min(480px, 82vw);
+  scroll-snap-align: start;
 }
 
-.projects-container .project-card:first-child {
-  transform: scale(1);
-  opacity: 1;
-}
-
-.projects-container:hover .project-card:not(:hover) {
-  transform: scale(0.9);
-  opacity: 0.6;
-}
-
-.projects-container:hover .project-card {
-  opacity: 0.4;
-}
-
-.project-card:hover {
-  transform: scale(1);
-  opacity: 1 !important;
-}
-
-.project-image {
+.bento-card-media {
+  position: relative;
   width: 100%;
-  max-width: 1100px;
-  height: 540px;
-  object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-  margin-bottom: 1rem;
-  margin-top: 2rem;
+  /* The actual photos are all landscape (roughly 1.3–1.9 wide-to-tall), so
+     a landscape frame lets "cover" fill the whole box without cropping
+     hard into the image the way the earlier portrait box did. */
+  aspect-ratio: 3 / 2;
+  border-radius: 24px;
+  overflow: hidden;
+  background: #111;
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  transition: box-shadow 0.3s ease, border-color 0.3s ease;
 }
 
-.project-video {
+.bento-card-media:hover {
+  border-color: rgba(255, 255, 255, 0.85);
+  box-shadow: 0 0 0 2px rgba(255, 255, 255, 0.5), 0 20px 40px rgba(0, 0, 0, 0.5);
+}
+
+.bento-card-media img,
+.bento-card-media video {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  max-width: 1100px;
-  height: 540px;
+  height: 100%;
   object-fit: cover;
-  border-radius: 12px;
-  box-shadow: 0 10px 20px rgba(0,0,0,0.4);
-  margin-bottom: 1rem;
-  margin-top: 2rem;
+  object-position: center center;
 }
 
-.project-description {
-  font-size: 1.1rem;
+.bento-card-gradient {
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(to top, rgba(0, 0, 0, 0.92) 0%, rgba(0, 0, 0, 0.55) 34%, rgba(0, 0, 0, 0) 62%);
+  pointer-events: none;
+}
+
+.bento-card-overlay {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 1.5rem 1.5rem 1.75rem;
+  text-align: left;
+  z-index: 2;
+}
+
+.bento-card-overlay h3 {
+  font-size: 1.15rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
   margin-bottom: 0.5rem;
-  color: #ddd;
 }
 
-.project-tools {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
-  gap: 10px;
-  margin-top: 0.75rem;
-}
-
-.project-tools .tool {
-  background: rgba(255, 255, 255, 0.1);
-  padding: 6px 12px;
-  border-radius: 20px;
+.bento-card-overlay p {
   font-size: 0.9rem;
-  color: #fff;
+  color: #ddd;
+  line-height: 1.5;
+  margin-bottom: 0.85rem;
+  max-width: 34ch;
 }
 
-.project-links {
+.bento-card-tags {
   display: flex;
   flex-wrap: wrap;
-  justify-content: center;
-  gap: 0.8rem;
-  margin-top: 0.5rem;
+  gap: 6px;
 }
 
-.project-link {
-  display: inline-block;
-  padding: 6px 14px;
+.bento-card-tags span {
+  font-size: 0.72rem;
+  padding: 4px 10px;
   border-radius: 20px;
-  background: rgba(0, 255, 255, 0.1);
-  color: #fff;
-  font-size: 0.95rem;
-  font-weight: 500;
-  text-decoration: none;
-  transition: all 0.3s ease;
+  background: rgba(255, 255, 255, 0.14);
+  backdrop-filter: blur(4px);
 }
 
-.project-link:hover {
-  background: rgba(0, 255, 255, 0.3);
+.bento-card-cta {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  background: #ffffff;
+  color: #0a0a0a;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.15rem;
   text-decoration: none;
-  text-shadow: 0 0 8px #fff;
-  cursor: pointer;
+  z-index: 3;
+  transition: transform 0.25s ease;
+}
+
+.bento-card-cta:hover {
+  transform: scale(1.08) rotate(8deg);
+}
+
+.bento-card-extra-links {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.9rem;
+  margin-top: 0.75rem;
+  padding-left: 0.25rem;
+}
+
+.bento-card-extra-links a {
+  font-size: 0.82rem;
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  opacity: 0.8;
+  transition: opacity 0.25s ease;
+}
+
+.bento-card-extra-links a:hover {
+  opacity: 1;
 }
 
 /* ---------------- EXPERIENCE PAGE ---------------- */
 
 .experience-page {
-  padding: 100px 20px;
-  max-width: 1200px;
+  padding: 4.5rem 20px 50px;
+  max-width: 1300px;
   margin: 0 auto;
   width: 100%;
 }
 
-.timeline-container {
-  position: relative;
+/* A simple photo + text row per role, divided by thin lines — a thumbnail
+   on the left, title/date/description on the right. No line or markers to
+   parse, each entry just reads top to bottom on its own. */
+
+.experience-list {
   display: flex;
   flex-direction: column;
-  gap: 2rem;
 }
 
-.timeline-container::before {
+.experience-row {
+  display: grid;
+  grid-template-columns: 140px 1fr;
+  gap: 1.85rem;
+  align-items: flex-start;
+  padding: 1.85rem 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+  text-align: left;
+}
+
+.experience-row:first-child {
+  padding-top: 0;
+}
+
+.experience-row:last-child {
+  padding-bottom: 0;
+  border-bottom: none;
+}
+
+.experience-thumb {
+  width: 140px;
+  height: 140px;
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 2rem;
+  overflow: hidden;
+  border-width: 6px;
+  border-style: solid;
+}
+
+.thumb-edu {
+  background: linear-gradient(135deg, rgba(190, 96, 112, 0.65), rgba(190, 96, 112, 0.3));
+}
+
+.thumb-work {
+  background: linear-gradient(135deg, rgba(122, 162, 214, 0.6), rgba(122, 162, 214, 0.25));
+}
+
+/* Same pastel palette as the Favourites cards, plain solid borders here
+   (no squiggle) so each experience photo reads as sitting in a simple
+   colored frame. */
+.thumb-pink {
+  border-color: #f6c9dd;
+}
+
+.thumb-yellow {
+  border-color: #fbe6a2;
+}
+
+.thumb-lavender {
+  border-color: #d9cdf5;
+}
+
+.thumb-mint {
+  border-color: #bdeed7;
+}
+
+.thumb-peach {
+  border-color: #ffd8b8;
+}
+
+.experience-thumb img {
+  width: 100%;
+  height: 100%;
+  /* Fills the whole frame; object-position is set per-photo inline (see
+     imagePosition in the data) so the actual subject stays in frame
+     instead of a blanket center crop cutting it off. */
+  object-fit: cover;
+}
+
+.experience-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin-bottom: 0.35rem;
+}
+
+.experience-subline {
+  font-size: 0.8rem;
+  color: #9aa5b1;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+  margin-bottom: 0.6rem;
+}
+
+.experience-description {
+  font-size: 0.98rem;
+  color: #d7dde3;
+  line-height: 1.55;
+  max-width: 680px;
+}
+
+.experience-toggle {
+  display: block;
+  margin: 2rem auto 0;
+  padding: 10px 26px;
+  border-radius: 24px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  background: rgba(255, 255, 255, 0.06);
+  color: #fff;
+  font-size: 0.85rem;
+  letter-spacing: 0.3px;
+  cursor: pointer;
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.experience-toggle:hover {
+  background: rgba(255, 255, 255, 0.14);
+  border-color: rgba(255, 255, 255, 0.35);
+}
+
+/* ---------------- EXPERIENCE: WHITE SECTION ----------------
+   Everything else on the site (Home, Projects) stays on the dark theme;
+   this section alone flips to a white background with dark text. Scoped
+   under #experience so nothing else is affected, since .section-heading
+   and a few other classes are shared with Projects. */
+
+#experience {
+  background-color: #f7f4ef;
+}
+
+#experience .section-heading,
+#experience .experience-title {
+  color: #0a0a0a;
+}
+
+#experience .experience-subline {
+  color: #6b6b6b;
+}
+
+#experience .experience-description {
+  color: #333333;
+}
+
+#experience .experience-row {
+  border-bottom-color: rgba(0, 0, 0, 0.12);
+}
+
+#experience .experience-toggle {
+  border-color: rgba(0, 0, 0, 0.18);
+  background: rgba(0, 0, 0, 0.04);
+  color: #0a0a0a;
+}
+
+#experience .experience-toggle:hover {
+  background: rgba(0, 0, 0, 0.09);
+  border-color: rgba(0, 0, 0, 0.3);
+}
+
+/* ---------------- FAVOURITES: PASTEL SECTION ----------------
+   Solid white background (brighter than Experience's off-white), a fun
+   grid of cards each with a different thick pastel border, an emoji,
+   the favourite itself, and a small category label at the bottom. */
+
+.favourites-page {
+  width: 100%;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 4.5rem 4vw 7rem;
+}
+
+.svg-defs {
+  position: absolute;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+#favourites {
+  background-color: #f7f4ef;
+}
+
+#favourites .section-heading {
+  color: #0a0a0a;
+}
+
+/* Gallery-wall: a balanced multi-column layout instead of a fixed grid, so
+   each card's real height (driven by its own photo's aspect ratio below)
+   decides where it lands rather than being forced into equal-height rows.
+   The tall book cover, the wide Friends poster, the square album art, etc.
+   all keep their natural proportions and the columns balance around them. */
+.favourites-grid {
+  column-count: 3;
+  column-gap: 0.85rem;
+  /* Matches the heading-to-content gap in Projects (heading margin +
+     arrow row + scroller padding there adds up to roughly this much). */
+  margin-top: 4rem;
+}
+
+.favourite-card {
+  position: relative;
+  background: #ffffff;
+  border-radius: 16px;
+  padding: 1.4rem 1.1rem 1.1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.7rem;
+  transform: rotate(var(--rotate, 0deg));
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+  /* Multi-column layout equivalent of "gap" between stacked cards, and a
+     guard so a card never gets sliced across two columns. */
+  break-inside: avoid;
+  margin-bottom: 0.85rem;
+}
+
+/* The pastel border lives on its own layer, run through an SVG turbulence
+   filter (defined inline in the component) so the edge reads as a hand-
+   drawn squiggle instead of a straight rectangle. Card content sits in
+   normal flow above it, unaffected by the distortion. */
+.favourite-card::before {
   content: '';
   position: absolute;
-  left: 20px;
-  top: 10px;
-  bottom: 10px;
-  width: 2px;
-  background: #fff;
-  z-index: 0;
+  inset: 0;
+  border-radius: 16px;
+  border-width: 10px;
+  border-style: solid;
+  pointer-events: none;
+  filter: url(#squiggly-border);
 }
 
-.timeline-item {
-  position: relative;
-  display: flex;
-  align-items: flex-start;
-  gap: 30px;
-  z-index: 1;
+.favourite-card:hover {
+  transform: rotate(0deg) translateY(-8px) scale(1.03);
+  box-shadow: 0 18px 30px rgba(0, 0, 0, 0.1);
+  z-index: 2;
 }
 
-.timeline-icon {
-  background: #0a0a0a;
-  padding: 5px 0;
-}
-
-.icon-circle {
-  width: 42px;
-  height: 42px;
-  background: #fff;
-  border: 1px solid #333;
-  border-radius: 50%;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  font-size: 1.1rem;
-  box-shadow: 0 0 10px rgba(0,0,0,0.5);
-  color: #fff;
-}
-
-.experience-card {
-  flex: 1;
-  background: #111111;
-  border: 1px solid #222;
+.favourite-image {
+  width: 100%;
+  background: #ffffff;
+  border: 2px dashed rgba(0, 0, 0, 0.15);
   border-radius: 12px;
-  padding: 2rem 2rem;
-  text-align: left;
-  transition: transform 0.3s ease, border-color 0.3s ease;
-}
-
-.experience-card:hover {
-  border-color: #444;
-  transform: translateX(5px);
-}
-
-.card-header {
   display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  margin-bottom: 1rem;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
 }
 
-.title-group h3 {
-  font-size: 1.25rem;
-  font-weight: 600;
-  margin-bottom: 4px;
+/* Once a real photo fills the frame, drop the dashed "placeholder" look
+   for a clean edge instead. */
+.favourite-image-filled {
+  border-style: solid;
+  border-color: rgba(0, 0, 0, 0.08);
 }
 
-.institution {
-  color: #fff;
-  font-size: 1rem;
-  font-weight: 400;
+.favourite-image img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
 }
 
-.meta-group {
-  text-align: right;
-  font-size: 0.9rem;
-  color: #888;
-  white-space: nowrap;
+.favourite-image-icon {
+  font-size: 1.9rem;
+  opacity: 0.4;
 }
 
-.dot {
-  margin: 0 8px;
+.favourite-title {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: #0a0a0a;
+  margin: 0;
 }
 
-.description {
-  color: #ccc;
-  line-height: 1.6;
-  font-size: 0.95rem;
+.favourite-label {
+  font-size: 0.7rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1.5px;
+  color: #9a9a9a;
+  margin-top: auto;
+  padding-top: 0.6rem;
+}
+
+.favourite-pink::before {
+  border-color: #f6c9dd;
+}
+
+.favourite-yellow::before {
+  border-color: #fbe6a2;
+}
+
+.favourite-lavender::before {
+  border-color: #d9cdf5;
+}
+
+.favourite-mint::before {
+  border-color: #bdeed7;
+}
+
+.favourite-peach::before {
+  border-color: #ffd8b8;
 }
 
 /* ================================================
@@ -445,6 +766,11 @@ body {
     padding: 1rem 1.2rem;
     grid-template-columns: auto 1fr;
     gap: 0.5rem;
+  }
+
+  #projects,
+  #experience {
+    scroll-margin-top: 84px;
   }
 
   .nav-dashboard {
@@ -488,86 +814,79 @@ body {
     font-size: 0.85rem;
   }
 
-  /* Projects: switch from horizontal scroll to vertical stack */
-  .projects-page-horizontal {
-    overflow-x: hidden;
-    overflow-y: visible;
-    padding: 1rem;
+  /* Projects: keep the horizontal swipe, just size it for a phone */
+  .projects-section {
+    padding: 4.5rem 5vw 3rem;
   }
 
-  .projects-container {
-    flex-direction: column;
-    gap: 2rem;
-    scroll-snap-type: none;
+  .section-heading {
+    margin-bottom: 1.75rem;
   }
 
-  .project-card {
-    min-width: unset;
-    width: 100%;
-    transform: scale(1) !important;
-    opacity: 1 !important;
-    margin-top: 1.5rem;
+  .projects-header {
+    justify-content: center;
   }
 
-  .project-image,
-  .project-video {
-    height: 220px;
-    margin-top: 1rem;
-    margin-bottom: 0.75rem;
+  .bento-card {
+    width: 88vw;
   }
 
-  .project-description {
-    font-size: 0.95rem;
+  .bento-card-overlay p {
+    max-width: none;
   }
 
-  /* Experience: stack meta below title */
+  /* Experience: keep the thumbnail beside the text (just smaller) rather
+     than stacking, so entries stay compact on a phone too. */
   .experience-page {
-    padding: 80px 14px 40px;
+    padding: 3.5rem 14px 30px;
   }
 
-  .timeline-container::before {
-    left: 16px;
+  .experience-row {
+    grid-template-columns: 84px 1fr;
+    gap: 1.1rem;
+    padding: 1.3rem 0;
   }
 
-  .timeline-item {
-    gap: 16px;
+  .experience-thumb {
+    width: 84px;
+    height: 84px;
+    font-size: 1.4rem;
+    border-width: 4px;
   }
 
-  .icon-circle {
-    width: 34px;
-    height: 34px;
-    font-size: 0.9rem;
-    flex-shrink: 0;
-  }
-
-  .experience-card {
-    padding: 1.25rem 1rem;
-  }
-
-  .card-header {
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .meta-group {
-    text-align: left;
-    white-space: normal;
-  }
-
-  .title-group h3 {
+  .experience-title {
     font-size: 1.05rem;
   }
 
-  .institution {
-    font-size: 0.9rem;
+  .experience-subline {
+    font-size: 0.7rem;
   }
 
-  .description {
+  .experience-description {
     font-size: 0.88rem;
+    max-width: none;
   }
 
-  .experience-card:hover {
-    transform: none; /* avoid layout shift on mobile tap */
+  /* Favourites: fewer columns on a phone (each card still sized by its
+     own photo's aspect ratio), and straighten the frames so the tight
+     squiggly borders stay legible at small sizes. */
+  .favourites-page {
+    padding: 3.5rem 14px 50px;
+  }
+
+  .favourites-grid {
+    column-count: 2;
+    column-gap: 0.9rem;
+  }
+
+  .favourite-card {
+    --rotate: 0deg;
+    padding: 1rem 0.85rem 0.9rem;
+    margin-bottom: 0.9rem;
+  }
+
+  .favourite-card::before {
+    border-width: 6px;
   }
 }
 
@@ -582,8 +901,7 @@ body {
     padding: 7px 12px;
   }
 
-  .project-image,
-  .project-video {
-    height: 180px;
+  .bento-card {
+    width: 92vw;
   }
 }

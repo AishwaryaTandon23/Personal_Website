@@ -22,3 +22,6 @@ dist-ssr
 *.njsproj
 *.sln
 *.sw?
+
+# Vite transient config artifacts
+vite.config.js.timestamp-*
