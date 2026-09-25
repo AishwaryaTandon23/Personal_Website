@@ -492,6 +492,21 @@ body {
   border-style: solid;
 }
 
+/* Thumbnails that link out to the org's site (an <a> rather than a plain
+   div): reset link styling and add a small hover cue so it reads as
+   clickable. */
+.experience-thumb-link {
+  text-decoration: none;
+  color: inherit;
+  cursor: pointer;
+  transition: transform 0.25s ease, filter 0.25s ease;
+}
+
+.experience-thumb-link:hover {
+  transform: scale(1.04);
+  filter: brightness(1.08);
+}
+
 .thumb-edu {
   background: linear-gradient(135deg, rgba(190, 96, 112, 0.65), rgba(190, 96, 112, 0.3));
 }

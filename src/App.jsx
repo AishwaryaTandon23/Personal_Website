@@ -280,6 +280,7 @@ const Experience = () => {
       title: "Oracle Product Consulting Intern",
       institution: "IBM",
       start: "Sept. 2026",
+      link: "https://www.ibm.com/consulting/oracle",
       location: "Toronto, ON",
       description: "Support clients in implementing Oracle solutions through requirements analysis and strategic recommendations.",
       image: "/exp-ibm.png",
@@ -290,6 +291,7 @@ const Experience = () => {
       title: "Product Manager",
       institution: "UW Blueprint",
       start: "Aug. 2026",
+      link: "https://uwblueprint.org/",
       end: "Present",
       location: "Waterloo, ON",
       description: "Working with the non-profit Don't Mess With the Don to scope, develop, and manage an event management platform.",
@@ -302,6 +304,7 @@ const Experience = () => {
       title: "Technical Business Analyst & Systems Engineer",
       institution: "Victoria Hand Project",
       start: "Jan. 2026",
+      link: "https://www.victoriahandproject.com/?gad_source=1&gad_campaignid=1045387125&gbraid=0AAAAADDlMbvpcnnuzumUY0g7urWC6FdKJ&gclid=Cj0KCQjwlNPVBhCMARIsAPZ5RqhQysrDq9fk90cbcgs3AlQWFxCaNeK_0gwj5CLD1S-76nv1ETnRM2caAscAEALw_wcB",
       end: "April 2026",
       location: "Victoria, BC",
       description: "Improving 3D-printed prosthetic solutions by translating user feedback into design improvements and optimizing stakeholder engagement.",
@@ -313,6 +316,7 @@ const Experience = () => {
       title: "Co-Founder and Director of Operations",
       institution: "Mind4Youth",
       start: "Feb. 2023",
+      link: "https://mind4youth.com/",
       end: "Present",
       location: "International",
       description: "Mobilize volunteers and launch initiatives that significantly advance youth mental health.",
@@ -325,6 +329,7 @@ const Experience = () => {
       title: "President",
       institution: "University of Waterloo Product Management Club",
       start: "Sept. 2025",
+      link: "https://uwaterloopm.ca/",
       end: "Present",
       location: "Waterloo, ON",
       description: "Organized community engagement and outreach, educating University Students on product management techniques.",
@@ -368,8 +373,9 @@ const Experience = () => {
 
           return (
             <div className="experience-row" key={idx}>
-              <div className={`experience-thumb ${exp.type === 'edu' ? 'thumb-edu' : 'thumb-work'} thumb-${exp.color || 'pink'}`}>
-                {exp.image ? (
+              {(() => {
+                const thumbClassName = `experience-thumb ${exp.type === 'edu' ? 'thumb-edu' : 'thumb-work'} thumb-${exp.color || 'pink'}`;
+                const thumbContent = exp.image ? (
                   <img
                     src={exp.image}
                     alt={`${exp.title} at ${exp.institution}`}
@@ -377,8 +383,24 @@ const Experience = () => {
                   />
                 ) : (
                   <span>{exp.type === 'edu' ? '🎓' : '💼'}</span>
-                )}
-              </div>
+                );
+
+                // Photos link out to the org's site when we have one; the
+                // rest just render as a plain (non-clickable) thumbnail.
+                return exp.link ? (
+                  <a
+                    href={exp.link}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={`${thumbClassName} experience-thumb-link`}
+                    aria-label={`Visit ${exp.institution}`}
+                  >
+                    {thumbContent}
+                  </a>
+                ) : (
+                  <div className={thumbClassName}>{thumbContent}</div>
+                );
+              })()}
 
               <div className="experience-content">
                 <h3 className="experience-title">{exp.title}</h3>
