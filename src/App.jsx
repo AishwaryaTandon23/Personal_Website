@@ -313,7 +313,7 @@ const Experience = () => {
       color: "lavender",
     },
     {
-      title: "Co-Founder and Director of Operations",
+      title: "Co-Founder",
       institution: "Mind4Youth",
       start: "Feb. 2023",
       link: "https://mind4youth.com/",
